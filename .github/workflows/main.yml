@@ -1,8 +1,9 @@
 name: build-darwin
 
-on: 
-  release:
-    types: [created]
+on:
+  push:
+    tags:
+      - '*'
 
 jobs:
   build:
@@ -24,14 +25,30 @@ jobs:
       run: cd Flutter/desktop;sh build.sh
       env: 
         GITHUB_TOKEN: ${{secrets.token}}
-    - name: Update release
-      uses: meeDamian/github-release@1.0
+    - name: upload
+      uses: actions/upload-artifact@master
       with:
-        token: ${{secrets.token}}
+        name: upload
         files: go/build/outputs/darwin.tar.gz
-#     - uses: skx/github-action-publish-binaries@master
-#       env:
-#         GITHUB_TOKEN: ${{ secrets.token }}
-#       with:
-#         name: mac-binary-exec
-#         path: go/build/outputs/darwin.tar.gz
+
+  upload:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - name: download
+      uses: actions/download-artifact@master
+      with:
+        name: upload
+      
+    - name: insert to release
+      uses: xresloader/upload-to-github-release@v1
+      env:
+        GITHUB_TOKEN: ${{secrets.token}}
+      with:
+        file: upload/darwin.tar.gz
+        tags: true
+        draft: false
+        prerelease: true
+        overwrite: true
+        verbose: true
+      
