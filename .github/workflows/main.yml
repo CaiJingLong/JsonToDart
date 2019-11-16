@@ -21,7 +21,9 @@ jobs:
       with:
         channel: 'beta'
     - run: cd Flutter/desktop;sh build.sh
-    - uses: actions/upload-artifact@master
+    - uses: skx/github-action-publish-binaries@master
+      env:
+        GITHUB_TOKEN: ${{ secrets.token }}
       with:
         name: mac-binary-exec
-        path: Flutter/desktop/go/build/outputs/darwin
+        path: go/build/outputs/darwin.tar.gz
