@@ -20,7 +20,10 @@ jobs:
     - uses: subosito/flutter-action@v1
       with:
         channel: 'beta'
-    - run: cd Flutter/desktop;sh build.sh
+    - name: build app
+      run: cd Flutter/desktop;sh build.sh
+      env: 
+        GITHUB_TOKEN: ${{secrets.token}}
     - uses: skx/github-action-publish-binaries@master
       env:
         GITHUB_TOKEN: ${{ secrets.token }}
