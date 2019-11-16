@@ -3,20 +3,16 @@ import 'dart:io';
 import 'package:json_to_dart_library/json_to_dart_library.dart';
 
 class ConfigHelper {
-  static const String key="JsonToDartConfig.txt";
+  static const String key = "JsonToDartConfig.txt";
   static final ConfigHelper _singleton = new ConfigHelper._internal();
 
   factory ConfigHelper() {
     return _singleton;
   }
 
-  ConfigHelper._internal() {
-   
-  }
-
+  ConfigHelper._internal() {}
 
   Config get config => appConfig;
-
 
   void initialize() {
     var currentDirectory = Directory.current;
