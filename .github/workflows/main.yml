@@ -24,9 +24,14 @@ jobs:
       run: cd Flutter/desktop;sh build.sh
       env: 
         GITHUB_TOKEN: ${{secrets.token}}
-    - uses: skx/github-action-publish-binaries@master
-      env:
-        GITHUB_TOKEN: ${{ secrets.token }}
+    - name: Update release
+      uses: meeDamian/github-release@1.0
       with:
-        name: mac-binary-exec
-        path: go/build/outputs/darwin.tar.gz
+        token: ${{secrets.token}}
+        files: go/build/outputs/darwin.tar.gz
+#     - uses: skx/github-action-publish-binaries@master
+#       env:
+#         GITHUB_TOKEN: ${{ secrets.token }}
+#       with:
+#         name: mac-binary-exec
+#         path: go/build/outputs/darwin.tar.gz
