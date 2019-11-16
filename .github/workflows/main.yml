@@ -29,7 +29,7 @@ jobs:
       uses: actions/upload-artifact@master
       with:
         name: upload
-        path: go/build/outputs/darwin.tar.gz
+        path: Flutter/desktop/go/build/outputs/darwin.tar.gz
 
   upload:
     runs-on: ubuntu-latest
