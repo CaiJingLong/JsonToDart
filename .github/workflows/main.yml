@@ -19,5 +19,13 @@ jobs:
         java-version: '12.x'
     - uses: subosito/flutter-action@v1
       with:
-        channel: 'dev'
+        channel: 'beta'
     - run: cd Flutter/desktop;sh build.sh
+    - uses: actions/upload-artifact@master
+      with:
+        name: mac-app
+        path: Flutter/desktop/go/build/outputs/darwin-bundle
+    - uses: actions/upload-artifact@master
+      with:
+        name: mac-binary-exec
+        path: Flutter/desktop/go/build/outputs/darwin
